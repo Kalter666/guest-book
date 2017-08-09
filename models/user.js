@@ -58,5 +58,16 @@ module.exports = {
             }
             return callback(null);
         });
+    },
+    add: (user, callback) => {
+        const query = 'INSERT INTO `user` (`id`, `username`, `pass`, `admin`,`create`)' +
+            "VALUES (NULL, ?, ?, 0, NULL)";
+        const inserts = [user.username, user.pass];
+        DB.request(query, inserts, (err) => {
+            if (err) {
+                return callback(err);
+            }
+            return callback(null);
+        });
     }
 };
