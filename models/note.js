@@ -1,9 +1,9 @@
 const DB = require(__dirname + './db');
 
 module.exports = {
-    delete: (user, callback) => {
-        const query = 'DELETE FROM `user` WHERE `id` = ? limit 1'; // del 1 user
-        const inserts = [user.id];
+    delete: (note, callback) => {
+        const query = 'DELETE FROM `note` WHERE `id` = ? limit 1'; // del 1 note
+        const inserts = [note.id];
         DB.request(query, inserts, (err) => {
             if (err) {
                 return callback(err);
@@ -12,7 +12,7 @@ module.exports = {
         });
     },
     select: (id, callback) => {
-        const query = 'SELECT * FROM `user` WHERE `id` = ? limit 1'; // select 1 user by id
+        const query = 'SELECT * FROM `note` WHERE `id` = ? limit 1'; // select 1 note by id
         const inserts = [id];
         DB.request(query, inserts, (err, rows) => {
             if (err) {
@@ -23,8 +23,8 @@ module.exports = {
             return callback(err, user);
         });
     },
-    selectByUsername: (username, callback) => {
-        const query = 'SELECT * FROM `user` WHERE `username` = ? limit 1'; // select 1 user by username
+    selectByTitle: (title, callback) => {
+        const query = 'SELECT * FROM `note` WHERE `title` = ? limit 1'; // select 1 note by title
         const inserts = [username];
         DB.request(query, inserts, (err, rows) => {
             if (err) {
@@ -34,24 +34,25 @@ module.exports = {
             return callback(err, rows[0]);
         });
     },
-    update: (user, callback) => {
-        let query = 'UPDATE `user` SET'; // update user params
+    update: (note, callback) => {
+        let query = 'UPDATE `note` SET'; // update note
         const inserts = [];
         const queryIns = [];
-        if (user.pass) {
-            inserts.push(user.pass);
-            queryIns.push('`pass` = ?');
+        if (note.id_user) {
+            inserts.push(note.id_user);
+            queryIns.push('`id_user` = ?');
         }
-        if (user.username) {
-            inserts.push(user.username);
-            queryIns.push('`username` = ?');
+        if (note.title) {
+            inserts.push(note.title);
+            queryIns.push('`title` = ?');
         }
-        if (user.admin) {
-            inserts.push(user.admin);
-            queryIns.push('`admin` = ?')
+        if (note.text) {
+            inserts.push(note.title);
+            queryIns.push('`title` = ?')
         }
+        inserts.push(note.id);
         query += queryIns.join(', ') + ' WHERE `id` = ? limit 1';
-        inserts.push(user.id);
+        
         DB.request(query, inserts, (err, rows) => {
             if (err) {
                 return callback(err);
