@@ -1,4 +1,4 @@
-const DB = require(__dirname + './db');
+const DB = require('./db');
 
 module.exports = {
     delete: (user, callback) => {
