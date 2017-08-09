@@ -22,7 +22,7 @@ app.set('view engine', 'pug');
 app.use(flash());
 
 app.use(cookieParser()); // для чтения кук
-
+// конфигурация кук
 app.use(cookieSession({
     name: 'session',
     keys: ['secret'],
