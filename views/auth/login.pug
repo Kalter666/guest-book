@@ -1,0 +1,21 @@
+include ../basic/head
+    link(href="/css/login.css", rel="stylesheet")
+    title Login
+body
+    div.container
+        div.row
+            div.col-xs-4.col-lg-4
+            div.col-xs-4.col-lg-4
+                h1.h1.text-primary Sign in
+                form(action="/login", method="post")
+                    div.form-group
+                        label(for="usr").text-capitalize.sr-only Username:
+                        input#usr.form-control(type="text", placeholder="Username", required, autofocus, name="username")
+                    div.form-group
+                        label(for="pwd").text-capitalize.sr-only Password:
+                        input#pwd.form-control(type="password", placeholder="Password", required, name="password")
+                    if message
+                        h4.text-danger.text-center= message
+                    button.btn.btn-lg.btn-primary.btn-block(type="submit") Sign in
+                    a.btn.btn-default.col-xs-8.col-xs-offset-2(href="/signup")
+                        span.text-info Need an account?
