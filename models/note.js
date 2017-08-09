@@ -47,7 +47,7 @@ module.exports = {
             queryIns.push('`title` = ?');
         }
         if (note.text) {
-            inserts.push(note.title);
+            inserts.push(note.text);
             queryIns.push('`title` = ?')
         }
         inserts.push(note.id);

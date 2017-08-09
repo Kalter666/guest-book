@@ -6,6 +6,6 @@ body
         span.h2.text-danger= ' ' + err
         div.btn-group-vertical
             if user
-                a.btn.btn-default.btn-success(href="/" + user.username) Back to my profile
+                a.btn.btn-default.btn-success(href="/profile/" + user.username) Back to my profile
             else
                 a.btn.btn-default(href="/") << Go to main page >>

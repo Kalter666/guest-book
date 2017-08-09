@@ -1,14 +1,13 @@
 include ../basic/head
     title= user.username + ' | Guest book'
 body
-    include ../basic/navbar
     div.jumbotron
         div.container
             div.row
                 //
                     Start menu
                 div.col-xs-2.left
-                    include ../basic/main-menu
+                    include ../basic/menu
                 //
                     end menu
                 //
@@ -17,6 +16,6 @@ body
                     div.col-xs-9
                         h2.h2.text-center.text-capitalize= user.username
                         if anotherUser.username
-                            h3.h3.text-center= anotheruser.username + ' записи'
+                            h3.h3.text-center= anotherUser.username + ' записи'
                         else
                             h3.h3.text-center= 'Мои записи:'
