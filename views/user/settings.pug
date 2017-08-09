@@ -1,0 +1,28 @@
+include ../basic/head
+    title My settings | social network
+body
+    div.jumbotron
+        div.container
+            div.row
+                div.col-xs-2.left
+                    include ../basic/menu
+                div.row
+                    div.col-xs-9.text-center
+                        h1.h1 My settings
+                        form(action="/settings" method="post")
+                            div.form-group
+                                label(for="username").text-capitalize Your username:
+                                input#username.form-control(type="text", placeholder="username", name="username")
+                            div.form-group
+                                label(for="pass").text-capitalize Your password:
+                                input#pass.form-control(type="text", placeholder="pass", name="pass")
+                            if errorMessage
+                                br
+                                div.text-danger.h2= errorMessage
+                            if successMessage
+                                br
+                                span.h2.text-success= successMessage
+                            button.btn.btn-lg.btn-success.btn-block(type="submit") Submit
+                        h3.h2 Or delete your account
+                        form(action="/deleteuser", method="post")
+                            button.btn.btn-lg.btn-block.btn-danger(type="submit") Delete my account
