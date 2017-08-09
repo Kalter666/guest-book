@@ -1,0 +1,11 @@
+include basic/head
+    title=
+body
+    div.text-center
+        h1.h1= message
+        span.h2.text-danger= ' ' + err
+        div.btn-group-vertical
+            if user
+                a.btn.btn-default.btn-success(href="/" + user.username) Back to my profile
+            else
+                a.btn.btn-default(href="/") << Go to main page >>
