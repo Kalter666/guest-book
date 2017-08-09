@@ -52,8 +52,8 @@ module.exports = {
         }
         inserts.push(note.id);
         query += queryIns.join(', ') + ' WHERE `id` = ? limit 1';
-        
-        DB.request(query, inserts, (err, rows) => {
+
+        DB.request(query, inserts, err => {
             if (err) {
                 return callback(err);
             }
