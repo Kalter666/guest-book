@@ -1,6 +1,7 @@
 include ../basic/head
     title= 'My Notes | Guest book'
 body
+    include ../basic/navbar
     div.jumbotron
         div.container
             div.row
@@ -26,6 +27,8 @@ body
                                         div.text-justify= note.text
                                         br
                                         span= 'created: ' + note.create
+                                        form(action="/note/delete/" + note.id, method="post")
+                                            button.btn.btn-danger(type="submit") Удалить
                         else
                             div.text-warning Здесь пока нет записей!
                         if pageCount

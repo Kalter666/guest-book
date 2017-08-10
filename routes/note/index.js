@@ -1,6 +1,6 @@
 const Stop = require('./../../models/stop-words');
 
-module.exports = (app, isLoggedIn, Note) => {
+module.exports = (app, isLoggedIn, Note, User) => {
     app.get('/note/editor', isLoggedIn, (req, res) => {
         res.render('note/editor', {
             user: req.user,
@@ -38,9 +38,8 @@ module.exports = (app, isLoggedIn, Note) => {
             function burst(arr1, arr2) {
                 for (let i = 0; i < arr1.length; i++) {
                     for (let j = 0; j < arr2.length; j++) {
-                        if (arr1[i] === arr2[j].replace(/[^A-Za-zА-Яа-яЁё]/g, "")) {
-                            console.log(arr2[j].replace(/[^A-Za-zА-Яа-яЁё]/g, ""));
-                            req.flash('error-message', 'Не используй: ' + arr[i]);
+                        if (arr1[i].stop_word === arr2[j].replace(/[^A-Za-zА-Яа-яЁё]/g, "").toLowerCase()) {
+                            req.flash('error-message', 'Не используй: ' + arr1[i].stop_word);
                             return res.redirect('note/editor');
                         }
                     }
@@ -49,8 +48,6 @@ module.exports = (app, isLoggedIn, Note) => {
 
             burst(words, titleWords);
             burst(words, textWords);
-
-            add();
         });
     });
 
@@ -66,5 +63,39 @@ module.exports = (app, isLoggedIn, Note) => {
                 pageCount: pageCount
             });
         });
+    });
+
+    app.post('/stop-word', isLoggedIn, (req, res) => {
+        if (req.user.admin !== 1)
+            return res.send('Ты не одмен');
+        Stop.add(req.body.stopWord.toLowerCase(), (err) => {
+            if (err) {
+                return res.send(err);
+            }
+            return res.redirect('/profile/' + req.user.username);
+        });
+    });
+
+    app.post('/note/delete/:id', isLoggedIn, (req, res) => {
+        Note.select(req.params.id, (err, note) => {
+            if (err) {
+                return res.send(err);
+            }
+            User.select(note.id_user, (err, user) => {
+                if (err) {
+                    return res.send(err);
+                }
+                if (req.user.admin !== 1 && user.username !== req.user.username) {
+                    return res.send('не нарушай правила');
+                }
+                Note.delete(note, err => {
+                    if (err) {
+                        return res.send(err);
+                    }
+                    return res.redirect('/notes/1');
+                });
+            });
+        });
+
     });
 };

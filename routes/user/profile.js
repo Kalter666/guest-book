@@ -59,4 +59,19 @@ module.exports = (app, passport, isLoggedIn, User, Note) => {
             res.redirect('/logout');
         });
     });
+
+    app.get('/search/user/:username', isLoggedIn, (req, res) => {
+        const name = req.params.username;
+        User.selectByUsername(name, (err, users) => {
+            if (err) return res.send(err);
+            res.render('user/search', {
+                user: req.user,
+                usr: users
+            });
+        });
+    });
+    app.post('/search/user', isLoggedIn, (req, res) => {
+        const name = encodeURIComponent(req.body.name);
+        res.redirect('/search/user/' + name);
+    });
 };

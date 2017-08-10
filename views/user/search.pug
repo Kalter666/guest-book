@@ -1,0 +1,30 @@
+include ../basic/head
+    title Search users | Social Network
+body
+    include ../basic/navbar
+    div.jumbotron
+        div.container
+            div.row
+                //
+                    Start menu
+                div.col-xs-2.left
+                    include ../basic/menu
+                //end menu
+                div.row
+                    div.col-xs-9
+                        //search form
+                        div.container(style="padding-top: 20px")
+                            form(method="post" action="/search/user")
+                                div.form-group
+                                    input.form-control(type="text" placeholder="Find someone..." name="name")#usersearch
+                                div.text-center
+                                    button(type="submit")#search.btn.btn-success
+                                        span.glyphicon.glyphicon-search
+                                        span Search
+                        if admin === 1
+                            div.container
+                                if usr
+                                    a.btn-block(href="/profile/" + usr.username)
+                                        span.text-primary= usr.username
+                                        br
+                                        span.text-info= 'Created: ' + usr.create

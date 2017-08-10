@@ -56,8 +56,7 @@ module.exports = {
     add: (word, callback) => {
         const query = 'INSERT INTO `stop-word` (`id`, `stop_word`)' +
             "VALUES (NULL, ?)";
-        const inserts = [word];
-        DB.request(query, inserts, (err) => {
+        DB.request(query, word, (err) => {
             if (err) {
                 return callback(err);
             }

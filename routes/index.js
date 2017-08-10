@@ -3,7 +3,7 @@ const Note = require('./../models/note');
 
 module.exports = (app, passport) => {
     require('./user/index')(app, passport, isLoggedIn, User, Note);
-    require('./note/index')(app, isLoggedIn, Note);
+    require('./note/index')(app, isLoggedIn, Note, User);
     require('./error/index')(app);
 };
 

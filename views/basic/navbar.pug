@@ -1,0 +1,11 @@
+if user.admin === 1
+    nav.navbar.navbar-inverse.navbar-fixed-top
+        div.container
+            div.navbar-header
+                a.navbar-brand(href="/profile/" + user.username) Моя книга
+            form.navbar-form.navbar-right(method="post" action="/search/user")
+                div.form-group
+                    input.form-control(type="text" placeholder="Find someone..." name="name")#usersearch
+                button(type="submit")#search.btn.btn-success
+                    span.glyphicon.glyphicon-search
+                    span Search

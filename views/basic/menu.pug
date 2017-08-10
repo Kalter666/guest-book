@@ -1,6 +1,12 @@
 div
     br
-    a.btn.btn-block.btn-info(href="/profile/" + user.username) My profile
-    a.btn.btn-block.btn-info(href="/notes/1") My notes
-    a.btn.btn-block.btn-info(href="/settings") My settings
-    a.btn.btn-block.btn-info(href="/logout") Logout
+    a.btn.btn-block.btn-info(href="/profile/" + user.username) Мой профиль
+    a.btn.btn-block.btn-info(href="/notes/1") Мои записки
+    if user.admin === 1
+        form(action="/stop-word" method="post")
+            div.form-group
+                label(for="stopWord").text-capitalize Новое стоп слово:
+                input#stopWord.form-control(type="text", placeholder="Слово", name="stopWord")
+            button.btn.btn-lg.btn-success.btn-block(type="submit") Подтвердить
+    a.btn.btn-block.btn-info(href="/settings") Мои настройки
+    a.btn.btn-block.btn-info(href="/logout") Выйти
