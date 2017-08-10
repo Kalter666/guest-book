@@ -24,7 +24,7 @@ body
                             ul.list-group.text-center
                                 each note in notes
                                     li.list-group-item
-                                        a.navbar-link(href="/note/" + article.id)= note.title
+                                        a.navbar-link(href="/note/" + note.id)= note.title
                                         br
                                         span= 'created: ' + note.create
                         else
