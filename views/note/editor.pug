@@ -1,0 +1,21 @@
+include ../basic/head
+    title Note Editor | Guest Book
+body
+    div.jumbotron
+        div.container
+            div.row
+                div.col-xs-2.left
+                    include ../basic/menu
+                div.row
+                    div.col-xs-9.text-center
+                        h1.h1 Editor
+                        form(action="/note" method="post")
+                            div.form-group
+                                label(for="title") Название:
+                                input#title.form-control(type="text", placeholder="Название", name="title")
+                            div.form-group
+                                label(for="text") Текст:
+                                textarea#text.form-control(rows="5", name="text")
+                            button.btn.btn-lg.btn-success.btn-block(type="submit") Submit
+                        if errorMessage
+                            div.text-danger= errorMessage

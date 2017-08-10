@@ -26,6 +26,8 @@ body
                                     li.list-group-item
                                         a.navbar-link(href="/note/" + note.id)= note.title
                                         br
+                                        div.text-justify= note.text
+                                        br
                                         span= 'created: ' + note.create
                         else
                             div.text-warning Здесь пока нет записей!

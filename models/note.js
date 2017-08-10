@@ -25,7 +25,7 @@ module.exports = {
     },
     selectByTitle: (title, callback) => {
         const query = 'SELECT * FROM `note` WHERE `title` = ? limit 1'; // select 1 note by title
-        const inserts = [username];
+        const inserts = [title];
         DB.request(query, inserts, (err, rows) => {
             if (err) {
                 return callback(err);
@@ -61,12 +61,32 @@ module.exports = {
         });
     },
     selectByUser: (user, callback) => {
-        const query = 'SELECT * FROM `note` WHERE `id_user` = ?';
+        const query = 'SELECT * FROM `note` WHERE `id_user` = ? ORDER BY `create` DESC LIMIT 5';
         const inserts = user.id;
         DB.request(query, inserts, (err, rows) => {
             if (err)
                 return callback(err);
             return callback(null, rows);
         })
-    }
+    },
+    add: (note, user, callback) => {
+        const query = 'INSERT INTO `note` (`id`, `id_user`, `title`, `text`,`create`)' +
+            "VALUES (NULL, ?, ?, ?, NULL)";
+        const inserts = [user.id, note.title, note.text];
+        DB.request(query, inserts, (err) => {
+            if (err) {
+                return callback(err);
+            }
+            return callback(null);
+        });
+    },
+    selectForPage: (user, callback) => {
+        const query = 'SELECT * FROM `note` WHERE `id_user` = ? ORDER BY `create` DESC LIMIT 5';
+        const inserts = user.id;
+        DB.request(query, inserts, (err, rows) => {
+            if (err)
+                return callback(err);
+            return callback(null, rows);
+        })
+    },
 };
