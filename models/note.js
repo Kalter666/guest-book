@@ -87,7 +87,7 @@ module.exports = {
             DB.request(query, inserts, (err, rows) => {
                 if (err)
                     return cb(err);
-                return cb(null, rows[0]);
+                return cb(null, rows[0].count);
             })
         };
 
@@ -95,14 +95,12 @@ module.exports = {
             if (err)
                 return callback(err);
             const pageCount = Math.ceil(count/5);
-            let start = 0, end = 0;
-            if (page !== 1)
-                start = page * 5;
-            else
-                start = 0;
-            end = start + 5;
+            let start, end = 5;
+            if (+page !== 1)
+                end = page * 5;
+            start = end - 5;
             const query = 'SELECT * FROM `note` WHERE `id_user` = ? ORDER BY `create` DESC LIMIT ?, ?';
-            const inserts = [user.id, start, end];
+            const inserts = [user.id, start, 5];
             DB.request(query, inserts, (err, rows) => {
                 if (err)
                     return callback(err);

@@ -53,4 +53,18 @@ module.exports = (app, isLoggedIn, Note) => {
             add();
         });
     });
+
+    app.get('/notes/:page', isLoggedIn, (req, res) => {
+        Note.selectForPage(req.user, req.params.page, (err, notes, pageCount) => {
+            if (err)
+                return res.send(err);
+            if (!notes[0])
+                notes = null;
+            res.render('note/notes', {
+                user: req.user,
+                notes: notes,
+                pageCount: pageCount
+            });
+        });
+    });
 };

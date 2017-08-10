@@ -1,5 +1,5 @@
 include ../basic/head
-    title= anotherUser.username + ' | Guest book'
+    title= 'My Notes | Guest book'
 body
     div.jumbotron
         div.container
@@ -16,18 +16,19 @@ body
                     div.col-xs-9.text-center
                         a.btn.btn-success(href="/note/editor")
                             span Создать запись
-                        if anotherUser.username !== user.username
-                            h3.h3= anotherUser.username + ' записи'
-                        else
-                            h3.h3= 'Мои записи:'
+                        h3.h3= 'Мои записи:'
                         if notes
                             ul.list-group.text-center
                                 each note in notes
                                     li.list-group-item
-                                        a.navbar-link(href="/note/" + notes.id)= notes.title
+                                        a.navbar-link(href="/note/" + note.id)= note.title
                                         br
-                                        div.text-justify= notes.text
+                                        div.text-justify= note.text
                                         br
-                                        span= 'created: ' + notes.create
+                                        span= 'created: ' + note.create
                         else
                             div.text-warning Здесь пока нет записей!
+                        if pageCount
+                            -var i = 1;
+                            while i < pageCount + 1
+                                a.btn-default(href="/notes/" + i)= i++
