@@ -3,7 +3,7 @@ include basic/head
 body
     div.container
         div.col-xs-4.col-xs-offset-4
-            if user.username
+            if user
                 a.btn-link(href="/profile/"+ user.username)
                     h2.text-center.h2 Profile
             a.btn-link(href="/login")

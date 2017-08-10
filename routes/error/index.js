@@ -11,7 +11,7 @@ module.exports = (app) => {
         let user = null;
         if (req.user)
             user = req.user;
-        res.render('error/error', {
+        res.render('error', {
             message: 'Bad Url',
             err: err.status,
             user: user

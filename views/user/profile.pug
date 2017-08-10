@@ -13,9 +13,19 @@ body
                 //
                     Start profile
                 div.row
-                    div.col-xs-9
-                        h2.h2.text-center.text-capitalize= anotherUser.username
-                        if anotherUser.username
-                            h3.h3.text-center= anotherUser.username + ' записи'
+                    div.col-xs-9.text-center
+                        a.btn.btn-success(href="/note/editor")
+                            span Создать запись
+                        if anotherUser.username !== user.username
+                            h3.h3= anotherUser.username + ' записи'
                         else
-                            h3.h3.text-center= 'Мои записи:'
+                            h3.h3= 'Мои записи:'
+                        if notes
+                            ul.list-group.text-center
+                                each note in notes
+                                    li.list-group-item
+                                        a.navbar-link(href="/note/" + article.id)= note.title
+                                        br
+                                        span= 'created: ' + note.create
+                        else
+                            div.text-warning Здесь пока нет записей!

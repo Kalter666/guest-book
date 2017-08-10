@@ -1,4 +1,4 @@
-const DB = require(__dirname + './db');
+const DB = require('./db');
 
 module.exports = {
     delete: (note, callback) => {
@@ -61,7 +61,7 @@ module.exports = {
         });
     },
     selectByUser: (user, callback) => {
-        const query = 'SELECT * FROM `note` WHERE `id_user = ?`';
+        const query = 'SELECT * FROM `note` WHERE `id_user` = ?';
         const inserts = user.id;
         DB.request(query, inserts, (err, rows) => {
             if (err)
