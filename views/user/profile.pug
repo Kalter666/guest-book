@@ -1,5 +1,5 @@
 include ../basic/head
-    title= user.username + ' | Guest book'
+    title= anotherUser.username + ' | Guest book'
 body
     div.jumbotron
         div.container
@@ -14,7 +14,7 @@ body
                     Start profile
                 div.row
                     div.col-xs-9
-                        h2.h2.text-center.text-capitalize= user.username
+                        h2.h2.text-center.text-capitalize= anotherUser.username
                         if anotherUser.username
                             h3.h3.text-center= anotherUser.username + ' записи'
                         else

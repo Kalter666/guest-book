@@ -59,5 +59,14 @@ module.exports = {
             }
             return callback(null);
         });
+    },
+    selectByUser: (user, callback) => {
+        const query = 'SELECT * FROM `note` WHERE `id_user = ?`';
+        const inserts = user.id;
+        DB.request(query, inserts, (err, rows) => {
+            if (err)
+                return callback(err);
+            return callback(null, rows);
+        })
     }
 };
