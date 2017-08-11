@@ -20,6 +20,7 @@ body
                                 span Создать запись
                         if anotherUser.username !== user.username
                             h3.h3= anotherUser.username + ' записи'
+                            a.btn.btn-link(href="/notes/" + anotherUser.username + "/1") Посмотреть все записи
                         else
                             h3.h3= 'Мои записи:'
                         if notes

@@ -17,7 +17,10 @@ body
                     div.col-xs-9.text-center
                         a.btn.btn-success(href="/note/editor")
                             span Создать запись
-                        h3.h3= 'Мои записи:'
+                        if anotherUser && anotherUser.username !== user.username
+                            h3.h3= 'записи: ' + user.username
+                        else
+                            h3.h3= 'Мои записи:'
                         if notes
                             ul.list-group.text-center
                                 each note in notes

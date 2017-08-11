@@ -24,7 +24,7 @@ module.exports = (app, isLoggedIn, Note, User) => {
                     req.flash('error-message', 'Err: ' + err);
                     return res.redirect('note/editor');
                 }
-                return res.redirect('/notes/1');
+                return res.redirect('/notes/' + req.user.username + '/1');
             });
         };
 
