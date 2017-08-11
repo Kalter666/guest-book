@@ -1,9 +1,21 @@
 const Stop = require('./../../models/stop-words');
 
 module.exports = (app, isLoggedIn, Note, User) => {
+    function burst(arr1, arr2) {
+        for (let i = 0; i < arr1.length; i++) {
+            for (let j = 0; j < arr2.length; j++) {
+                if (arr1[i].stop_word === arr2[j].replace(/[^A-Za-zА-Яа-яЁё]/g, "").toLowerCase()) {
+                    req.flash('error-message', 'Не используй: ' + arr1[i].stop_word);
+                    return res.redirect('note/editor');
+                }
+            }
+        }
+    }
+
     app.get('/note/editor', isLoggedIn, (req, res) => {
         res.render('note/editor', {
             user: req.user,
+            note: null,
             errorMessage: req.flash('error-message'),
             successMessage: req.flash('success-message')
         });
@@ -33,17 +45,6 @@ module.exports = (app, isLoggedIn, Note, User) => {
                 return res.redirect('note/editor');
             } else if (!words[0]) {
                 return add();
-            }
-
-            function burst(arr1, arr2) {
-                for (let i = 0; i < arr1.length; i++) {
-                    for (let j = 0; j < arr2.length; j++) {
-                        if (arr1[i].stop_word === arr2[j].replace(/[^A-Za-zА-Яа-яЁё]/g, "").toLowerCase()) {
-                            req.flash('error-message', 'Не используй: ' + arr1[i].stop_word);
-                            return res.redirect('note/editor');
-                        }
-                    }
-                }
             }
 
             burst(words, titleWords);
@@ -96,6 +97,28 @@ module.exports = (app, isLoggedIn, Note, User) => {
                 });
             });
         });
+    });
 
+    app.get('/note/edit/:id', isLoggedIn, (req, res) => {
+        Note.select(req.params.id, (err, note) => {
+            if (err) {
+                return res.send(err);
+            }
+            User.select(note.id_user, (err, user) => {
+                if (err) {
+                    return res.send(err);
+                }
+                if (req.user.admin !== 1 && user.username !== req.user.username) {
+                    return res.send('не нарушай правила');
+                }
+                console.log(note, user);
+                res.render('note/editor', {
+                    user: req.user,
+                    note: note,
+                    errorMessage: req.flash('error-message'),
+                    successMessage: req.flash('success-message')
+                });
+            });
+        });
     });
 };

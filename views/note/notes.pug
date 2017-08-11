@@ -29,6 +29,8 @@ body
                                         span= 'created: ' + note.create
                                         form(action="/note/delete/" + note.id, method="post")
                                             button.btn.btn-danger(type="submit") Удалить
+                                        form(action="/note/edit/" + note.id, method="post")
+                                            button.btn.btn-warning(type="submit") Изменить
                         else
                             div.text-warning Здесь пока нет записей!
                         if pageCount
