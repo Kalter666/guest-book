@@ -21,10 +21,9 @@ body
                                     button(type="submit")#search.btn.btn-success
                                         span.glyphicon.glyphicon-search
                                         span Search
-                        if admin === 1
-                            div.container
-                                if usr
-                                    a.btn-block(href="/profile/" + usr.username)
-                                        span.text-primary= usr.username
-                                        br
-                                        span.text-info= 'Created: ' + usr.create
+                        div.container
+                            if usr
+                                a.btn-block(href="/profile/" + usr.username)
+                                    span.text-primary= usr.username
+                                    br
+                                    span.text-info= 'Created: ' + usr.create

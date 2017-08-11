@@ -11,11 +11,10 @@ body
                     div.col-xs-9.text-center
                         h1.h1 Editor
                         if note
-                            form(action="/note/" + note.id method="post")
+                            form(action="/note/edit/" + note.id method="post")
                                 div.form-group
                                     label(for="title") Название:
-                                    input#title.form-control(type="text", value= note.title, placeholder="Название",
-                                    name="title")
+                                    input#title.form-control(type="text", value= note.title, placeholder="Название", name="title")
                                 div.form-group
                                     label(for="text") Текст:
                                     textarea#text.form-control(rows="5", name="text")= note.text
@@ -31,3 +30,5 @@ body
                                 button.btn.btn-lg.btn-success.btn-block(type="submit") Submit
                         if errorMessage
                             div.text-danger= errorMessage
+                        if successMessage
+                            div.text-success= successMessage

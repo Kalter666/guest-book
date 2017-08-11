@@ -48,7 +48,7 @@ module.exports = {
         }
         if (note.text) {
             inserts.push(note.text);
-            queryIns.push('`title` = ?')
+            queryIns.push('`text` = ?')
         }
         inserts.push(note.id);
         query += queryIns.join(', ') + ' WHERE `id` = ? limit 1';

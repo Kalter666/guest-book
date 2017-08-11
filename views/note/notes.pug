@@ -29,11 +29,12 @@ body
                                         span= 'created: ' + note.create
                                         form(action="/note/delete/" + note.id, method="post")
                                             button.btn.btn-danger(type="submit") Удалить
-                                        form(action="/note/edit/" + note.id, method="post")
+                                        form(action="/note/edit/" + note.id, method="get")
                                             button.btn.btn-warning(type="submit") Изменить
                         else
                             div.text-warning Здесь пока нет записей!
                         if pageCount
                             -var i = 1;
                             while i < pageCount + 1
-                                a.btn-default(href="/notes/" + i)= i++
+                                if anotherUser
+                                    a.btn-default(href="/notes/" + anotherUser.username + "/" + i)= i++

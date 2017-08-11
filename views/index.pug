@@ -6,8 +6,9 @@ body
             if user
                 a.btn-link(href="/profile/"+ user.username)
                     h2.text-center.h2 Profile
-            a.btn-link(href="/login")
-                h2.text-center.h2 Log in
-            br
-            a.btn-link(href="/signup")
-                h2.text-center.h2 Sign up
+            else
+                a.btn-link(href="/login")
+                    h2.text-center.h2 Log in
+                br
+                a.btn-link(href="/signup")
+                    h2.text-center.h2 Sign up
